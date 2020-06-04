@@ -4,7 +4,7 @@ This repository contains the Python code neccessary to reproduce Figure 4 from
 
 > Anderegg et al. (2020) Climate-driven risks to the climate mitigation potential of forests, Science
 
-The sole focus here producing the figure for the article. We are actively developing more general purpose data products and tools related to this work!
+The sole focus here is producing the figure for the article. We are actively developing more general purpose data products and tools related to this work!
 
 To run the two scripts that generate the plots, first install the requirements
 
