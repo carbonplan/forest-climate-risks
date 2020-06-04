@@ -19,13 +19,5 @@ python plot_histograms.py
 python plot_maps.py
 ```
 
-The two key pieces of underlying data are a derived table of fire probabilities averaged within ecoregions, and the shapefiles for the ecoregions obtained from the Climate Action Reserve.
-
-The fire probabilities are themselves obtained from processing the raw [MTBS raster data](https://www.mtbs.gov/direct-download), as follows:
-
-- Step 1
-- Step 2
-- ...
-
 
 
