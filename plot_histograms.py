@@ -19,14 +19,14 @@ second_half = (df.set_index('ecoregion')
     .groupby('ecoregion')
     .mean())
 
-scale = lambda p: (1 - binom.cdf(0, 100, p))
-colormap = YlOrRd_9.mpl_colormap
-plt.rcParams.update({'font.size': 10})
+def integrated_risk(p):
+    return (1 - binom.cdf(0, 100, p))
 
 def plot_histogram(data):
+    cmap = YlOrRd_9.mpl_colormap
     plt.figure(figsize=(7, 3))
     N, bins, patches = plt.hist(
-        clip(scale(data) * 100, 0, 50), 
+        clip(integrated_risk(data) * 100, 0, 50), 
         bins=arange(0, 55, 5), 
         rwidth=0.9, 
         edgecolor='black', 
@@ -34,10 +34,10 @@ def plot_histogram(data):
     )
     for thisbin, thispatch in zip(bins, patches):
         # scale by 2 so it saturates at 50
-        color = colormap(thisbin / 100 * 2)
+        color = cmap(thisbin / 100 * 2)
         thispatch.set_facecolor(color)
     plt.axvline(
-        mean(scale(data) * 100), 
+        mean(integrated_risk(data) * 100), 
         color='k', 
         linestyle='dashed', 
         linewidth=1
@@ -47,6 +47,7 @@ def plot_histogram(data):
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
 
+plt.rcParams.update({'font.size': 10})
 plot_histogram(first_half['fraction'])
 plot_histogram(second_half['fraction'])
 plt.show(block=True)
