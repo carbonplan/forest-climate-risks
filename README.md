@@ -1,10 +1,10 @@
 # forest-climate-risks
 
-This repository contains the Python code neccessary to reproduce Figure 4 from
+This repository contains the code neccessary to reproduce Figure 4 on fire risks to forest carbon from
 
 > Anderegg et al. (2020) Climate-driven risks to the climate mitigation potential of forests, Science
 
-We are actively developing more general purpose data products and tools related to this work. This particular repository is just for reproducing the analysis and plotting for the Figure.
+We are actively developing new open source datasets and tools related to this work. This particular repository is just for reproducing the analysis and for the review article and generating the plots.
 
 To run the two scripts that generate the plots, first install the requirements
 
