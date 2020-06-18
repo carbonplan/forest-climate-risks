@@ -1,10 +1,11 @@
+# this script uses shape files of ecoregions
+# to aggregate statistics from burned area rasters
+
 import zarr
 import gcsfs
-
 from geopandas import read_file
 from pandas import DataFrame, concat
 from numpy import asarray, where
-
 from shapely.prepared import prep
 from shapely.geometry import Point
 
