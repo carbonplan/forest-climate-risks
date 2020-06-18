@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 
 from pandas import read_csv
 from geopandas import read_file
+from shapely.ops import transform
 from scipy.stats import binom
 from numpy import asarray, arange, clip, mean
 from matplotlib.cm import ScalarMappable
@@ -10,7 +11,7 @@ from descartes import PolygonPatch
 from palettable.colorbrewer.sequential import YlOrRd_9
 
 # read fire data
-df = read_csv('data/MTBS-1984-2017-500m.csv', index_col=0)
+df = read_csv('data/MTBS.500m.csv', index_col=0)
 
 # read spatial data
 sf = read_file('data/ecoregions.500m.geojson')
@@ -35,8 +36,9 @@ def plot_map(data):
     plt.figure(figsize=(7, 7))
     cmap = YlOrRd_9.mpl_colormap
     ax = plt.gca()
+    flip = lambda x, y: (y, x)
     draw = lambda i, shape: PolygonPatch(
-        shape, 
+        transform(flip, shape), 
         fc=cmap(integrated_risk(data[i]) * 2), 
         ec=[0, 0, 0], 
         linewidth=0.3, 

@@ -5,7 +5,7 @@ from numpy import arange, clip, mean
 from palettable.colorbrewer.sequential import YlOrRd_9
 
 # read data
-df = read_csv('data/MTBS-1984-2017-500m.csv', index_col=0)
+df = read_csv('data/MTBS.500m.csv', index_col=0)
 
 # select first half (1984 - 2000)
 first_half = (df.set_index('ecoregion')

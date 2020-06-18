@@ -6,11 +6,12 @@
 # raw data downloaded from 
 # https://www.climateactionreserve.org/wp-content/uploads/2009/03/GIS-Supersection-Shape-File1.zip
 
-RAW_PATH = 'GIS-Supersection-Shape-File1.zip'
-SAVE_PATH = 'ecoregions.500m.geojson'
+RAW_PATH = 'CAR_Supersections'
+SAVE_PATH = 'data/ecoregions.500m.geojson'
 
 import shapefile
 from rasterio import Affine
+from geopandas import GeoSeries
 from shapely.ops import transform
 from shapely.geometry import Polygon, MultiPolygon
 from rasterio.transform import rowcol
@@ -50,7 +51,6 @@ parsed = parse(raw)
 flip = lambda x, y: (y, x)
 t = Affine(*[500.00000000000006, 0.0, -2493045.0, 0.0, -500.00000000000006, 3310005.0])
 discretized = [discretize(s, t) for s in parsed]
-flipped = [transform(flip, s) for s in discretized]
 
-sf = GeoSeries(flipped)
+sf = GeoSeries(discretized)
 sf.to_file(SAVE_PATH, driver='GeoJSON')
