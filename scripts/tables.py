@@ -8,6 +8,17 @@ from numpy import asarray, where
 from shapely.prepared import prep
 from shapely.geometry import Point
 
+# load ecoregions
+sf = read_file('data/ecoregions.500m.geojson')
+
+# load array of burned area rasters
+gcs = gcsfs.GCSFileSystem(anon=True)
+root = 'carbonplan-data/processed/MTBS/raster.zarr/'
+store = gcsfs.GCSMap(root=root, gcs=gcs, check=False)
+group = zarr.group(store=store)
+array = asarray(group['4000m']['burned_area'])
+
+# function for comparing a region to a bounding box
 def inbounds(p, b):
     c1 = p[:,0] > b[0]
     c2 = p[:,0] < b[2]
@@ -15,14 +26,7 @@ def inbounds(p, b):
     c4 = p[:,1] < b[3]
     return c1 & c2 & c3 & c4
 
-sf = read_file('data/ecoregions.500m.geojson')
-
-gcs = gcsfs.GCSFileSystem(anon=True)
-root = 'carbonplan-data/processed/MTBS/raster.zarr/'
-store = gcsfs.GCSMap(root=root, gcs=gcs, check=False)
-group = zarr.group(store=store)
-array = asarray(group['4000m']['burned_area'])
-
+# main loop over years
 years = ['%s' % (d + 1984) for d in range(2018-1984)]
 dfs = []
 index = range(len(sf))
