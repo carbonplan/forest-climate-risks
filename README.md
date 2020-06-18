@@ -2,7 +2,7 @@
 
 This repository contains the code neccessary to reproduce Figure 4 on fire risks to forest carbon from
 
-> Anderegg et al. (2020) Climate-driven risks to the climate mitigation potential of forests, Science
+> Anderegg et al. (2020) Climate-driven risks to the climate mitigation potential of forests, Science, 10.1126/science.aaz7005
 
 We are actively developing new open source datasets and tools related to this work. This particular repository is just for reproducing the analysis for the review article and generating the plots.
 
