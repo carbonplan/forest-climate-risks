@@ -17,7 +17,7 @@ gcs = gcsfs.GCSFileSystem(anon=True)
 root = 'carbonplan-data/processed/MTBS/raster.zarr/'
 store = gcsfs.GCSMap(root=root, gcs=gcs, check=False)
 group = zarr.group(store=store)
-array = asarray(group['4000m']['burned_area'])
+rasters = group['500m']['burned_area']
 
 # function for comparing a region to a bounding box
 def inbounds(p, b):
@@ -34,7 +34,8 @@ index = range(len(sf))
 columns = ['ecoregion', 'year', 'fraction']
 for y, year in enumerate(years):
     df = DataFrame(index=index, columns=columns)
-    vals = asarray(where(array[y] > 0)).T
+    raster = rasters[y]
+    vals = asarray(where(raster > 0)).T
     for s, shape in enumerate(sf['geometry']):
         df.at[s, 'ecoregion'] = s
         df.at[s, 'year'] = year
@@ -46,7 +47,7 @@ for y, year in enumerate(years):
         )
         if len(inside) > 0:
             rc = vals[inds][inside]
-            total = array[y, rc.T[0], rc.T[1]].sum()
+            total = raster[rc.T[0], rc.T[1]].sum()
             df.at[s,'fraction'] = total / shape.area
         else:
             df.at[s,'fraction'] = 0
